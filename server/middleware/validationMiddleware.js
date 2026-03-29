@@ -24,3 +24,12 @@ exports.loginValidation = [
   body("email").isEmail().withMessage("Valid email is required"),
   body("password").notEmpty().withMessage("Password is required"),
 ];
+
+
+exports.createBlogValidation = [
+  body("title").notEmpty().withMessage("Title is required"),
+  body("content").notEmpty().withMessage("Content is required"),
+  body("category").notEmpty().withMessage("Category is required"),
+  body("tags").notEmpty().withMessage("Tags is required"),
+];
+
