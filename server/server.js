@@ -9,6 +9,8 @@ const { protect, admin } = require("./middleware/authMiddleware");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const commentRoutes = require("./routes/commentRoutes");
 const bookmarkRoutes = require("./routes/bookmarkRoutes");
+const userRoutes = require("./routes/userRoutes");
+
 
 dotenv.config();
 
@@ -22,6 +24,8 @@ app.use("/api/blogs", blogRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/comments", commentRoutes);
 app.use("/api/bookmarks", bookmarkRoutes);
+app.use("/api/users", userRoutes);
+
 
 app.get("/", (req, res) => {
   res.send("Hello World");
