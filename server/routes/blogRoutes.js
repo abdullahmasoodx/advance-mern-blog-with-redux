@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {createBlog,getBlogs,getSingleBlog,updateBlog,deleteBlog} = 
+const {createBlog,getBlogs,getSingleBlog,updateBlog,deleteBlog,toggleLikeBlog} = 
 require("../controllers/blogController");
 
 const {protect} = require("../middleware/authMiddleware");
@@ -14,5 +14,6 @@ router.get("/:id",getSingleBlog);
 router.post("/",protect,upload.single("image"),createBlogValidation,validate,createBlog);
 router.put("/:id",protect,upload.single("image"),updateBlog);
 router.delete("/:id",protect,deleteBlog);
+router.put("/:id/like",protect,toggleLikeBlog);
 
 module.exports = router;

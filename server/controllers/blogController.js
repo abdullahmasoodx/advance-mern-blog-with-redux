@@ -76,7 +76,6 @@ exports.getBlogs = async (req, res) => {
   }
 };
 
-
 exports.getSingleBlog = async (req, res) => {
   try {
     const blog = await Blog.findById(req.params.id).populate(
@@ -158,6 +157,48 @@ exports.deleteBlog = async (req, res) => {
     return res.status(200).json({
       message: "Blog deleted successfully",
     });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message || "Server Error",
+    });
+  }
+};
+
+// Like or unliok blog
+
+exports.toggleLikeBlog = async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({
+        message: "Blog not found",
+      });
+    }
+
+    const userId = req.user._id.toString();
+    const alreadyLiked = blog.likes.some((id) => id.toString() === userId);
+    if (alreadyLiked) {
+      blog.likes = blog.likes.filter((id) => id.toString() !== userId);
+      await blog.save();
+
+      return  res.status(200).json({
+        message: "Blog unliked suscessfully",
+        likeCount: blog.likes.length,
+        likes:blog.likes,
+      });
+
+    } else {
+      
+      blog.likes.push(userId);
+      await blog.save();
+
+      return res.status(200).json({
+        message: "Blog liked successfully",
+        likeCount: blog.likes.length,
+        likes: blog.likes,
+      });
+    }
   } catch (error) {
     return res.status(500).json({
       message: error.message || "Server Error",
