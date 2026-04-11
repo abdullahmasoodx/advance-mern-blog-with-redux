@@ -65,7 +65,7 @@ const blogSlice = createSlice({
 
       // CREATE BLOG
       .addCase(addBlog.fulfilled, (state, action) => {
-        state.blogs.unshift(action.payload);
+          state.blogs.unshift(action.payload);
       })
 
       // LIKE

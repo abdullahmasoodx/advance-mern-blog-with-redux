@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import CreateBlog from "./pages/CreateBlog";
 
 const App = () => {
   return (
@@ -14,6 +15,15 @@ const App = () => {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/create-blog"
+        element={
+          <ProtectedRoute>
+            <CreateBlog />
           </ProtectedRoute>
         }
       />
